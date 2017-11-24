@@ -3,7 +3,7 @@
 
 - Edit widget.js to create a JS 'widget' module that is executed on each frame that extracts the names and labels for each html form control. Each frame is already configured to load the widget script from widget/widget.js.
 
-- The parent frame must collect the entire list of fields from all documents, including all child frames. The list of fields should be ordered by field 'name' in ascending order. See get_fields_test.js for the expected output.
+- The top frame must collect the entire list of fields from all documents, including all descendent frames. The list of fields should be ordered by field 'name' in ascending order. See get_fields_test.js for the expected output.
 
 - When your widget has collected all the fields from all the frames, trigger a CustomEvent on the top frame document named 'frames:loaded' with a property named 'widget' within the detail. The widget is a string with the variable name of your widget object on the window scope.  This will call window[your_object_name].getFields() and run the test.
 
