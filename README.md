@@ -1,7 +1,7 @@
 # Fillr Senior JS Engineer Code Test
 
 
-- Edit widget.js to create a JS 'widget' module that is executed on each frame that extracts the names and labels for each html form control. Each frame is already configured to load the widget script from widget/widget.js.
+- Edit widget.js to create a JS 'widget' module that is executed on each frame. The widget should extract the names and labels for each html form control in the document. Each frame is already configured to load the widget script from widget/widget.js.
 
 - The top frame must collect the entire list of fields from all documents, including all descendent frames. The list of fields should be ordered by field 'name' in ascending order. See get_fields_test.js for the expected output.
 
@@ -14,3 +14,7 @@ Notes:
 - The test case should not be changed.
 - The test must pass 100% of the times it is run (assuming no network errors).
 
+
+## Submission
+
+Please submit your code test in a public github repo and notify stu@fillr.com when you are complete!
