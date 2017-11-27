@@ -10,10 +10,11 @@
 
 Notes:
 
+- Only edit the widget.js file!
 - The frame documents should not be edited.
 - The test case should not be changed.
+- Karma config should not be edited.
 - The test must pass 100% of the times it is run (assuming no network errors).
-
 
 ## Submission
 
