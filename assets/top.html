@@ -13,7 +13,10 @@
   </form>
 
   <iframe src="http://fillr-code-tests.s3.amazonaws.com/test-b/address.html"></iframe>
-
-  <script src="http://localhost:9999/base/widget/widget.js"></script>
+  <script>
+    let s = document.createElement('script');
+    s.src = 'http://localhost:9999/base/widget/widget.js'
+    document.body.appendChild(s);
+  </script>
 </body>
 </html>

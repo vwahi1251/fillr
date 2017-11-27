@@ -15,10 +15,10 @@ describe('Widget #getFields', () => {
     fixture.setBase('assets');
     fixture.load('top.html');
 
-    document.addEventListener('frames:loaded', function (event) {
+    document.addEventListener('frames:loaded', (event) => {
       this.result = window[event.detail.widget].getFields();  
       done();  
-    }.bind(this));
+    });
   });
 
   it('should extract the fields', () => {

@@ -22,9 +22,7 @@ module.exports = function(config) {
     files: [
       'test/get_fields_test.js',
       'assets/top.html',
-
-      // { pattern: 'assets/top.html', watched: false, included: true, served: true, nocache: true }
-      { pattern: 'widget/widget.js', watched: false, included: true, served: true, nocache: true }
+      { pattern: 'widget/widget.js', watched: false, included: false, served: true, nocache: true }
     ],
 
 
