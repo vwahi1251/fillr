@@ -16,8 +16,8 @@ describe('Widget #getFields', () => {
     fixture.load('top.html');
 
     document.addEventListener('frames:loaded', (event) => {
-      this.result = window[event.detail.widget].getFields();  
-      done();  
+      this.result = event.detail.fields
+      done();
     });
   });
 
