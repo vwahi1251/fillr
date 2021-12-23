@@ -22,6 +22,8 @@ module.exports = function(config) {
     files: [
       'test/get_fields_test.js',
       'assets/top.html',
+      'assets/address.html',
+      'assets/payment.html',
       { pattern: 'widget/widget.js', watched: false, included: false, served: true, nocache: true }
     ],
 
