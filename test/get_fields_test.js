@@ -22,7 +22,7 @@ describe('Widget #getFields', () => {
   });
 
   it('should extract the fields', () => {
-    console.log("inside test", this.result, expectation);
+    console.log(this.result);
     expect(this.result).to.deep.equal(expectation);
   });
 });

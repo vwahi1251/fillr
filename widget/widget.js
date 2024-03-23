@@ -2,10 +2,20 @@
 // Write your module here
 // It must send an event "frames:loaded" from the top frame containing a list of { name:label } pairs,
 // which describes all the fields in each frame.
-
+function countNestedFrames() {
+  let count = 1; // Start with 1 for the top frame
+  function traverseFrames(window) {
+    const frames = window.frames;
+    for (let i = 0; i < frames.length; i++) {
+      count++; // Increment count for each frame
+      traverseFrames(frames[i]);
+    }
+  }
+  traverseFrames(window);
+  return count;
+}
 // This is a template to help you get started, feel free to make your own solution.
 function execute() {
-
   let framesFields; //variable used to get all the fields
   let frameCount = 0;
 
@@ -15,32 +25,31 @@ function execute() {
     // Step 2 Add Listener for Top Frame to Receive Fields.
     if (isTopFrame()) {
       framesFields = [...fields];
+      const nestedFrameCount = countNestedFrames();
 
       //Event listener on parent
       window.addEventListener("message", (event) => {
         if (event.data && event.data.fromFrame) {
           // Increment frame count
           frameCount++;
-        // Merge fields from frames.
-        framesFields.push(...event.data);
 
-        // - Process Fields and send event once all fields are collected.
+          // Merge fields from frames.
+          framesFields.push(...event.data.fields);
 
-        console.log(Object.values(framesFields.sort(sortByKey))); 
- // If all frames have sent their data, process fields and send event
- if (frameCount === window.frames.length) {
-          const framesLoadedEvent = new CustomEvent("frames:loaded", {
-            detail: { fields: framesFields}
-          });
-          document.dispatchEvent(framesLoadedEvent); 
+          // - Process Fields and send event once all fields are collected.
+
+          // If all frames have sent their data, process fields and send event
+          if (frameCount === nestedFrameCount) {
+            const framesLoadedEvent = new CustomEvent("frames:loaded", {
+              detail: { fields: framesFields.sort(sortByKey) },
+            });
+            document.dispatchEvent(framesLoadedEvent);
+          }
         }
-      }
- 
       });
-
     } else if (!isTopFrame()) {
       // Child frames sends Fields up to Top Frame.
-      getTopFrame().postMessage(scrapeFields(), "*");
+      getTopFrame().postMessage({ fields: fields, fromFrame: true }, "*"); //fromFrame used to tell function if it's inside frame
     }
   } catch (e) {
     console.error(e);
@@ -51,7 +60,14 @@ function execute() {
 function sortByKey(a, b) {
   // Define the custom order of the keys
 
-  const order = ["address_line_1", "cc_number", "cc_type", "country", "first_name", "last_name"];
+  const order = [
+    "address_line_1",
+    "cc_number",
+    "cc_type",
+    "country",
+    "first_name",
+    "last_name",
+  ];
 
   const keyA = Object.keys(a)[0];
   const keyB = Object.keys(b)[0];
