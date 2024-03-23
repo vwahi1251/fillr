@@ -7,6 +7,7 @@
 function execute() {
 
   let framesFields; //variable used to get all the fields
+  let frameCount = 0;
 
   try {
     // Step 1 Scrape Fields and Create Fields list object.
@@ -17,17 +18,23 @@ function execute() {
 
       //Event listener on parent
       window.addEventListener("message", (event) => {
+        if (event.data && event.data.fromFrame) {
+          // Increment frame count
+          frameCount++;
         // Merge fields from frames.
         framesFields.push(...event.data);
 
         // - Process Fields and send event once all fields are collected.
 
         console.log(Object.values(framesFields.sort(sortByKey))); 
-
+ // If all frames have sent their data, process fields and send event
+ if (frameCount === window.frames.length) {
           const framesLoadedEvent = new CustomEvent("frames:loaded", {
             detail: { fields: framesFields}
           });
           document.dispatchEvent(framesLoadedEvent); 
+        }
+      }
  
       });
 
