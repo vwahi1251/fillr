@@ -5,14 +5,7 @@
 
 // This is a template to help you get started, feel free to make your own solution.
 function execute() {
-  const expectation = [
-    { "address_line_1" : "Address Line 1" },
-    { "cc_number" : "Number" },
-    { "cc_type" : "Type" },
-    { "country" : "Country" },
-    { "first_name" : "First Name" },
-    { "last_name" : "Last Name" }
-  ];
+
   let framesFields; //variable used to get all the fields
 
   try {
@@ -29,13 +22,12 @@ function execute() {
 
         // - Process Fields and send event once all fields are collected.
 
-
-     //   console.log(Object.values(framesFields.sort(sortByKey))); 
+        console.log(Object.values(framesFields.sort(sortByKey))); 
 
           const framesLoadedEvent = new CustomEvent("frames:loaded", {
-            detail: { fields: expectation}
+            detail: { fields: framesFields}
           });
-          window.dispatchEvent(framesLoadedEvent); 
+          document.dispatchEvent(framesLoadedEvent); 
  
       });
 

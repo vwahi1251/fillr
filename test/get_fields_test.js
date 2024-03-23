@@ -16,14 +16,13 @@ describe('Widget #getFields', () => {
     fixture.load('top.html');
 
     document.addEventListener('frames:loaded', (event) => {
-      this.result = event.detail.fields;
-      console.log("inside test", this.result);
+      this.result = event.detail.fields
       done();
     });
   });
 
   it('should extract the fields', () => {
-    console.log(this.result, expectation);
+    console.log("inside test", this.result, expectation);
     expect(this.result).to.deep.equal(expectation);
   });
 });
