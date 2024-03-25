@@ -2,47 +2,44 @@
 // Write your module here
 // It must send an event "frames:loaded" from the top frame containing a list of { name:label } pairs,
 // which describes all the fields in each frame.
-
+function scrapeFields(frame) {
+  const fields = [];
+  const formElements = frame.contentDocument.querySelectorAll('input[name], select[name]');
+  console.log(formElements);
+  for (const element of formElements) {
+    const name = element.getAttribute('name');
+    const label = element.parentNode.querySelector('label')?.textContent || '';
+    fields.push({ [name]: label });
+  }
+  return fields;
+}
 // This is a template to help you get started, feel free to make your own solution.
-function execute() {
+async function execute() {
 	try {
+    var fields = [];
+
     // Step 1 Scrape Fields and Create Fields list object.
-    var fields = scrapeFields()
-    console.log(fields);
+    fields.push(scrapeFields(window.frame[0]));
     // Step 2 Add Listener for Top Frame to Receive Fields.
     if (isTopFrame()) {
-      const framesFields = [];
       window.addEventListener('message', (event) => {
         // - Merge fields from frames.
-        console.log('another event',event.data);
-         framesFields.push(event.data);
+        console.log("recived event", event);
+        fields.push(event.data.fields);
         // - Process Fields and send event once all fields are collected.
-        if (framesFields.length === window.frames.length) {
-          // Process Fields and send event once all fields are collected.
-          const allFields = framesFields.reduce((acc, curr) => [...acc, ...curr], []);
-          const framesLoadedEvent = new CustomEvent('frames:loaded', { detail: allFields });
+        if(window.frames.length == 2) {
+          console.log('loaded',framesFields);
+          const framesLoadedEvent = new CustomEvent('frames:loaded', { detail: framesFields });
+       
           window.dispatchEvent(framesLoadedEvent);
-      }
+        }
       });
-
-      Array.from(window.frames).forEach((frame, index) => {
-        frame.postMessage('startScraping', '*');
-        console.log(frame.name);
-    });
     } else if (!isTopFrame()) {
-      // Child frames sends Fields up to Top Frame.
-      getTopFrame().postMessage(scrapeFields(), '*');
+      await getTopFrame().postMessage(fields, "*");
     }
 	} catch (e) {
 		console.error(e)
 	}
-}
-
-function scrapeFields() {
-  const fields = document.querySelectorAll('input[name], select[name]');
-  console.log(fields);
-  const fieldsList = Array.from(fields).map(field => ({ name: field.name, label: field.labels?.[0]?.innerText || field.name }));
-  return fieldsList;
 }
 
 execute();
