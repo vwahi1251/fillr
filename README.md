@@ -16,7 +16,3 @@ Notes:
 - The test case should not be changed.
 - Karma config should not be edited.
 - The test must pass 100% of the times it is run (assuming no network errors).
-
-## Submission
-
-Please submit your code test in a public Github repo and notify mujtaba.hussain@rakuten.com when you are complete!
