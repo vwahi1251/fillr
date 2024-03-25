@@ -18,7 +18,8 @@ Notes:
 - The test must pass 100% of the times it is run (assuming no network errors).
 
 
-##Solution
-1.**ScrapFields**: This function is implemented ot fetch the input/sleect fields from forms provided.
-2.**Communication between iframes**: This is achieved via post message function.
-3.Additional event listener is implented which is used for event.
+## Solution Outline
+
+1. **Scrape Fields**: Implement the `scrapeFields` function to fetch input and select fields from forms.
+2. **Inter-iframe Communication**: Achieve communication between iframes using the `postMessage` function.
+3. **Event Listener**: Implement an additional event listener for handling the `frames:loaded` event, ensuring data aggregation and processing are correctly managed.
