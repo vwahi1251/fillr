@@ -16,3 +16,9 @@ Notes:
 - The test case should not be changed.
 - Karma config should not be edited.
 - The test must pass 100% of the times it is run (assuming no network errors).
+
+
+##Solution
+1.**ScrapFields**: This function is implemented ot fetch the input/sleect fields from forms provided.
+2.**Communication between iframes**: This is achieved via post message function.
+3.Additional event listener is implented which is used for event.
